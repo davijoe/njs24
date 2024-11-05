@@ -49,10 +49,10 @@ app.use(express.static("../client/public"));
 // Set cookies to be secure in production
 app.use(
   session({
-    secret: process.env.SESSION_SECRET, // Replace with a strong secret
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // Ensure the cookie is secure in production
+    cookie: { secure: false },
   })
 );
 app.use(flash());
