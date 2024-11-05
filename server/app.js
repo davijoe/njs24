@@ -67,19 +67,18 @@ app.get("/", (req, res) => {
   res.send(renderPage(homepage, config));
 });
 
-// Helmet to set security headers
+// To set security headers
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts
       imgSrc: ["'self'"], // Allow images from the same domain
-      // Add other directives as needed
     },
   })
 );
 
-// Middleware for authentication routes and page routes
+// Middleware for auth and page routes
 app.use(authrouter);
 app.use(pagesRouter);
 
