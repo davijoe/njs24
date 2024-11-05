@@ -4,6 +4,36 @@
   </div>
 
   <div id="cards-container-div">
+    <h1>Card Data</h1>
+    <div id="cards-container"></div>
 
+    <script>
+        async function fetchCards() {
+            try {
+                const response = await fetch("/api/cards");
+                const data = await response.json();
+
+                const container = document.getElementById("cards-container");
+                data.forEach(card => {
+                    const cardDiv = document.createElement("div");
+                    cardDiv.className = "card";
+                    cardDiv.innerHTML = `
+                        <h2>${card.name}</h2>
+                        <p><strong>Type:</strong> ${card.type}</p>
+                        <p><strong>Set:</strong> ${card.card_set}</p>
+                        <p><strong>Class:</strong> ${card.player_class}</p>
+                        <p><strong>Health:</strong> ${card.health}</p>
+                        <p><strong>Artist:</strong> ${card.artist}</p>
+                        <p><strong>Rarity:</strong> ${card.rarity}</p>
+                    `;
+                    container.appendChild(cardDiv);
+                });
+            } catch (error) {
+                console.error("Error fetching card data:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchCards);
+    </script>
   </div>
 </section>

@@ -1,17 +1,13 @@
-import express from "express";
-import pg from "pg";
 import helmet from "helmet";
 import session from "express-session";
 import bodyParser from "body-parser";
 import path from "path";
 import flash from "connect-flash";
-
-import pagesRouter from "./router/pagesRouter.js";
-import authrouter from "./router/authRouter.js";
 import { renderPage } from './util/templatingEngine.js';
 import { readPage } from './util/readPages.js';
 
-
+import express from "express";
+import pg from "pg";
 const app = express();
 const { Client } = pg;
 
@@ -117,8 +113,11 @@ app.use(
 );
 
 // Middleware for auth and page routers
-app.use(authrouter);
+import pagesRouter from "./router/pagesRouter.js";
 app.use(pagesRouter);
+import authrouter from "./router/authRouter.js";
+app.use(authrouter);
+
 
 // Start server
 const PORT = process.env.PORT || 3000;
