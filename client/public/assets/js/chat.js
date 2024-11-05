@@ -1,6 +1,4 @@
-// Establish socket connection only once per session
-if (!sessionStorage.getItem("socketConnected")) {
-    sessionStorage.setItem("socketConnected", "true");
+if (!window.socket) {
     const socket = io();
     window.socket = socket;
 
@@ -10,8 +8,14 @@ if (!sessionStorage.getItem("socketConnected")) {
         messageElement.textContent = msg;
         messages.appendChild(messageElement);
     });
-} else {
-    const socket = window.socket;
+
+    socket.on("connect", () => {
+        console.log("Socket connected with ID:", socket.id);
+    });
+
+    socket.on("disconnect", () => {
+        console.log("Socket disconnected");
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -26,9 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function sendMessage() {
         const input = document.getElementById("messageInput");
         const message = input.value;
-        if (message) {
+        if (message && window.socket) {
             window.socket.emit("client", message);
             input.value = "";
+        } else {
+            console.error("Socket connection not available.");
         }
     }
 });
