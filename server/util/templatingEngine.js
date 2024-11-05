@@ -27,6 +27,6 @@ export function renderPage(page, config = {}) {
     login +
     page +
     footer +
-    successMessageScript // Inject the message here as part of the final HTML
+    successMessageScript
   );
 }

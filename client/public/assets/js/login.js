@@ -106,7 +106,7 @@ document.querySelectorAll('.tab').forEach(function(tab) {
         }, 3000);
     }
     
-    if (successMessage) {
-      showToast(successMessage); // Call the toast function if there's a success message
-    }
+    // if (successMessage) {
+    //   showToast(successMessage); // Call the toast function if there's a success message
+    // }
   

@@ -64,6 +64,23 @@ const io = new Server(server, {
   },
 });
 
+io.on("connection", (socket) => {
+  console.log("A socket has connected", socket.id);
+
+  // Notify others when a user connects
+  socket.broadcast.emit("message", `${socket.id.substring(0, 5)} entered the chat.`);
+
+  // Listen for messages from the client
+  socket.on("client", (data) => {
+    io.emit("message", `${socket.id.substring(0, 5)}: ${data}`);
+  });
+
+  // Notify others when a user disconnects
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("message", `User ${socket.id.substring(0, 5)} disconnected`);
+  });
+})
+
 // Serve static files
 app.use(express.static("../client/public"));
 
@@ -81,10 +98,10 @@ app.use(flash());
 // Home route using custom template engine
 app.get("/", (req, res) => {
   const homepage = readPage("../client/src/pages/homepage/homepage.html");
-  const successMessage = req.flash("success");
+  //const successMessage = req.flash("success");
 
   // Inject the flash message into the page
-  const config = { tabTitle: "Home", successMessage };
+  const config = { tabTitle: "Home" };
   res.send(renderPage(homepage, config));
 });
 
