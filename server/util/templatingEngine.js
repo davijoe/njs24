@@ -6,13 +6,13 @@ export function readPage(path) {
 
 export function renderPage(page, config = {}) {
   const header = fs
-    .readFileSync("../client/public/components/header/header.html")
+    .readFileSync("../client/src/components/header/header.html")
     .toString();
   const footer = fs
-    .readFileSync("../client/public/components/footer/footer.html")
+    .readFileSync("../client/src/components/footer/footer.html")
     .toString();
   const login = fs
-    .readFileSync("../client/public/components/login/login.html")
+    .readFileSync("../client/src/components/login/login.html")
     .toString();
 
   // Add success message if it exists

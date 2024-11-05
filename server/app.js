@@ -5,10 +5,12 @@ import session from "express-session";
 import bodyParser from "body-parser";
 import path from "path";
 import flash from "connect-flash";
+
 import pagesRouter from "./router/pagesRouter.js";
 import authrouter from "./router/authRouter.js";
 import { renderPage } from './util/templatingEngine.js';
 import { readPage } from './util/readPages.js';
+
 
 const app = express();
 const { Client } = pg;
@@ -40,8 +42,27 @@ async function initializeDatabase() {
   } finally {
     await client.end();
   }
-}
+};
 initializeDatabase();
+
+import cors from "cors";
+app.use(
+  cors({
+    credentials: true,
+    origin: true,
+  })
+);
+
+import http from "http";
+const server = http.createServer(app);
+
+import { Server } from "socket.io";
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["*"],
+  },
+});
 
 // Serve static files
 app.use(express.static("../client/public"));
@@ -59,7 +80,7 @@ app.use(flash());
 
 // Home route using custom template engine
 app.get("/", (req, res) => {
-  const homepage = readPage("../client/public/pages/homepage/homepage.html");
+  const homepage = readPage("../client/src/pages/homepage/homepage.html");
   const successMessage = req.flash("success");
 
   // Inject the flash message into the page
