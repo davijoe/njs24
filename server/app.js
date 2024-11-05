@@ -99,7 +99,7 @@ app.use(
   })
 );
 
-// Middleware for auth and page routes
+// Middleware for auth and page routers
 app.use(authrouter);
 app.use(pagesRouter);
 
