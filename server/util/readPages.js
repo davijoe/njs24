@@ -10,6 +10,9 @@ export const cardsPage = renderPage(cards, { tabTitle: "Cards" });
 const chat = readPage("../client/src/pages/chat/chat.html");
 export const chatPage = renderPage(chat, { tabTitle: "Chat" });
 
+const test = readPage("../client/src/pages/test/test.html");
+export const testPage = renderPage(test, { tabTitle: "Test" });
+
 // Export readPage as both a named and default export
 export { readPage };
 export default readPage;

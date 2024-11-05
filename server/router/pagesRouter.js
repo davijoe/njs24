@@ -1,4 +1,4 @@
-import { homepagePage, cardsPage, chatPage } from "../util/readPages.js";
+import { homepagePage, cardsPage, chatPage, testPage } from "../util/readPages.js";
 
 import { Router } from "express";
 const router = Router();
@@ -16,6 +16,11 @@ router.get("/api/cards", (req, res) => {
 // Chat page
 router.get("/api/chat", (req, res) => {
   res.send(chatPage);
+})
+
+// Test page
+router.get("/api/test", (req, res) => {
+  res.send(testPage)
 })
 
 export default router;
