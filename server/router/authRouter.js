@@ -39,17 +39,17 @@ router.post(
 router.post(
   "/api/v1/login",
   checkCredentialsLogin,
-  checkEmail,
   autenticateUser,
   async (req, res) => {
     try {
       req.session.userId = req.userId;
-      return res.status(200).send({ data: "Login Successful" });
+      req.session.username = req.body.username; // Save the username in the session
+      return res.status(200).json({ success: true, username: req.body.username, redirectUrl: "/" });
     } catch (error) {
       console.error("Error in login:", error);
       return res.status(500).send({ data: "Login failed" });
     }
-  },
+  }
 );
 
 export default router;

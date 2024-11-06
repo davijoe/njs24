@@ -71,42 +71,67 @@ function handleLabel(e) {
 
 // Handle tab switching inside the modal
 document.querySelectorAll('.tab').forEach(function(tab) {
-    tab.addEventListener('click', function(e) {
-      e.preventDefault();
+  tab.addEventListener('click', function(e) {
+    e.preventDefault();
   
-      // Set the clicked tab as active
-      var parentLi = tab.parentNode;
-      console.log('Activating tab:', parentLi); // Debugging line
-  
-      parentLi.classList.add('active');
-      parentLi.parentNode.querySelectorAll('li').forEach(function(sibling) {
-        if (sibling !== parentLi) {
-          sibling.classList.remove('active');
-        }
-      });
-  
-      // Show the associated content
-      var target = document.querySelector(tab.querySelector('a').getAttribute('href'));
-      document.querySelectorAll('.tab-content > div').forEach(function(content) {
-        content.style.display = 'none';
-      });
-      target.style.display = 'block';
+    // Set the clicked tab as active
+    var parentLi = tab.parentNode;
+    parentLi.classList.add('active');
+    parentLi.parentNode.querySelectorAll('li').forEach(function(sibling) {
+      if (sibling !== parentLi) {
+        sibling.classList.remove('active');
+      }
     });
-  });
-
-    // Function to display the toast
-    function showToast(message) {
-        const toast = document.getElementById("toast");
-        toast.textContent = message;
-        toast.classList.add("show");
-    
-        // Hide the toast after 3 seconds
-        setTimeout(() => {
-          toast.classList.remove("show");
-        }, 3000);
-    }
-    
-    // if (successMessage) {
-    //   showToast(successMessage); // Call the toast function if there's a success message
-    // }
   
+    // Show the associated content
+    var target = document.querySelector(tab.querySelector('a').getAttribute('href'));
+    document.querySelectorAll('.tab-content > div').forEach(function(content) {
+      content.style.display = 'none';
+    });
+    target.style.display = 'block';
+  });
+});
+
+// Function to display the toast
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  // Hide the toast after 3 seconds
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
+
+// Handle login submission with AJAX
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
+  event.preventDefault(); // Prevent traditional form submission
+
+  const formData = new URLSearchParams(new FormData(event.target));
+
+  try {
+    const response = await fetch("/api/v1/login", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      // Save the username in session storage
+      sessionStorage.setItem("username", data.username);
+
+      // Show success toast
+      showToast("Login successful!");
+
+      // Redirect to the home page
+      window.location.href = data.redirectUrl;
+    } else {
+      showToast("Login failed. Please try again."); // Show error message
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    showToast("An error occurred during login.");
+  }
+});

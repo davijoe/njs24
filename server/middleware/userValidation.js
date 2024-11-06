@@ -17,16 +17,14 @@ export function checkCredentialsSignup(req, res, next) {
 
 export async function checkCredentialsLogin(req, res, next) {
   req.body.username = req?.body.username?.trim();
-  req.body.email = req?.body.email?.trim();
   req.body.password = req?.body.password?.trim();
 
-  const { username, email, password } = req.body;
-  //const { username, password } = req.body;
+  const { username, password } = req.body;
 
-  if ((!username && !email) || !password) {
+  if (!username || !password) {
     return res
       .status(400)
-      .send("Please provide either username or email and password");
+      .send("Please provide both username and password");
   }
   next();
 }

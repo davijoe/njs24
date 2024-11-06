@@ -1,12 +1,11 @@
-import { getUserByEmail } from "../database/userRepository.js";
+import { getUserByUsername } from "../database/userRepository.js";
 import { verifyPassword } from "../util/passwordUtils.js";
 
 export async function autenticateUser(req, res, next) {
   try {
-    const { email, password } = req.body;
-    // TODO: Implement username auth as well
+    const { username, password } = req.body;
 
-    const result = await getUserByEmail(email);
+    const result = await getUserByUsername(username);
 
     if (result.status === "error") {
       return res.status(500).send({ data: result.error });

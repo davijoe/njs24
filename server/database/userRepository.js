@@ -42,6 +42,22 @@ export async function getUserById(id) {
 // const userById = await getUserById(1);
 // console.log(userById);
 
+export async function getUserByUsername(username) {
+  try {
+    const result = await connection.query(
+      "SELECT id, username, password FROM users WHERE username = $1;",
+      [username],
+    );
+    return { status: "success", data: result.rows[0] };
+  } catch (error) {
+    console.log("Error fetching user by username:", error);
+    return { status: "error", error: "Error fetching user by username" };
+  }
+}
+// Example usage
+// const userByUsername = getUserByUsername("dandan");
+// console.log(userByUsername);
+
 export async function getUserByEmail(email) {
   try {
     const result = await connection.query(
