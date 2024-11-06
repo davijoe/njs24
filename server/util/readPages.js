@@ -13,6 +13,9 @@ export const chatPage = renderPage(chat, { tabTitle: "Chat" });
 const test = readPage("../client/src/pages/test/test.html");
 export const testPage = renderPage(test, { tabTitle: "Test" });
 
+const profile = readPage("../client/src/pages/profile/profile.html");
+export const profilePage = renderPage(profile, { tabTitle: "Profile" });
+
 // Export readPage as both a named and default export
 export { readPage };
 export default readPage;

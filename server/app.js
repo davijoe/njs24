@@ -15,6 +15,7 @@ app.use(express.json());
 // Parse URL-encoded bodies (from HTML forms)
 app.use(express.urlencoded({ extended: true }));
 
+
 // Set up environment variables
 import dotenv from "dotenv";
 dotenv.config();
@@ -90,6 +91,9 @@ app.use(
     cookie: { secure: false },
   })
 );
+
+import { attachUserSession } from "./middleware/userSession.js";
+app.use(attachUserSession)
 
 app.use(flash());
 

@@ -1,4 +1,4 @@
-import { homepagePage, cardsPage, chatPage, testPage } from "../util/readPages.js";
+import { homepagePage, cardsPage, chatPage, testPage, profilePage } from "../util/readPages.js";
 
 import { Router } from "express";
 const router = Router();
@@ -25,12 +25,12 @@ router.get("/api/test", (req, res) => {
 
 // Profile page
 router.get("/api/v1/profile", (req, res) => {
-  // Check if the user is logged in
-  if (req.session.userId) {
-    res.json({ message: `Hello, ${req.session.username}!` });
-  } else {
-    res.status(401).json({ error: "Unauthorized. Please log in." });
+  const username = req.session.username;
+  
+  if (!username) {
+     return res.status(401).redirect("/");
   }
+  res.send(profilePage);
 });
 
 export default router;
