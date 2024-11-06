@@ -43,7 +43,7 @@ router.post(
   async (req, res) => {
     try {
       req.session.userId = req.userId;
-      req.session.username = req.body.username; // Save the username in the session
+      req.session.username = req.body.username; // Save username in session
       return res.status(200).json({ success: true, username: req.body.username, redirectUrl: "/" });
     } catch (error) {
       console.error("Error in login:", error);

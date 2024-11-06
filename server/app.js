@@ -1,7 +1,5 @@
 import helmet from "helmet";
 import session from "express-session";
-import bodyParser from "body-parser";
-import path from "path";
 import flash from "connect-flash";
 import { renderPage } from './util/templatingEngine.js';
 import { readPage } from './util/readPages.js';
@@ -92,19 +90,19 @@ app.use(
     cookie: { secure: false },
   })
 );
+
 app.use(flash());
 
 // Home route using custom template engine
 app.get("/", (req, res) => {
   const homepage = readPage("../client/src/pages/homepage/homepage.html");
-  //const successMessage = req.flash("success");
-
-  // Inject the flash message into the page
-  const config = { tabTitle: "Home" };
+  const config = { 
+    tabTitle: "Home", 
+    username: req.session.username,
+  };
   res.send(renderPage(homepage, config));
 });
 
-// To set security headers
 app.use(
   helmet.contentSecurityPolicy({
     directives: {

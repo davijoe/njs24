@@ -15,6 +15,13 @@ export function renderPage(page, config = {}) {
     .readFileSync("../client/src/components/login/login.html")
     .toString();
 
+  const authButtons = config.username
+    ? `<li><a href="/api/v1/profile">${config.username}</a></li>`
+    : `
+      <li><a href="#" id="login-link">Login</a></li>
+      <li><a href="#" id="signup-link">Signup</a></li>
+    `;
+
   // Add success message if it exists
   const successMessageScript = `
     <script>
@@ -23,7 +30,9 @@ export function renderPage(page, config = {}) {
   `;
 
   return (
-    header.replace("$tabTitle$", config.tabTitle || "Hearthstonejs") +
+    header
+      .replace("$tabTitle$", config.tabTitle || "Hearthstonejs")
+      .replace("$authButtons$", authButtons) +
     login +
     page +
     footer +
