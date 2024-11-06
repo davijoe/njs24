@@ -26,8 +26,15 @@ function renderCards(cards) {
             <p><strong>Health:</strong> ${card.health}</p>
             <p><strong>Artist:</strong> ${card.artist}</p>
             <p><strong>Rarity:</strong> ${card.rarity}</p>
+            <button class="add-card-btn" data-card-id="${card.card_id}">➕</button>
         `;
         container.appendChild(cardDiv);
+
+        const addButton = cardDiv.querySelector(".add-card-btn");
+        addButton.addEventListener("click", async (event) => {
+            const cardId = event.target.getAttribute("data-card-id");
+            await addCardToProfile(cardId);
+        })
     });
 }
 
@@ -43,6 +50,27 @@ function searchCards(term) {
         card.artist.toLowerCase().includes(searchTerm)
     );
     renderCards(filteredCards);
+}
+
+async function addCardToProfile(cardId) {
+    try {
+        const response = await fetch("/api/add-card", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ cardId })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            alert("Card added to your profile!");
+        } else {
+            alert(data.error || "Failed to add card.");
+        }
+    } catch (error) {
+        console.error("Error adding card to profile:", error);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -61,5 +89,4 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("search-input").addEventListener("input", (event) => {
         searchCards(event.target.value);
     });
-
 });
