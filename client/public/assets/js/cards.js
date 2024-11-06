@@ -46,4 +46,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("filter-enchantment").addEventListener("click", () => filterCards("type", "Enchantment"));
     document.getElementById("filter-weapon").addEventListener("click", () => filterCards("type", "Weapon"));
     document.getElementById("filter-hero-power").addEventListener("click", () => filterCards("type", "Hero Power"));
+    document.getElementById("filter-all").addEventListener("click", () => renderCards(cardsData));
 });
