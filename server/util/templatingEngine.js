@@ -28,5 +28,5 @@ export function renderPage(page, config = {}) {
     page +
     footer +
     successMessageScript
-  );
+  );  
 }
