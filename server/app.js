@@ -11,6 +11,9 @@ import pg from "pg";
 const app = express();
 const { Client } = pg;
 
+// To parse json req bodies
+app.use(express.json());
+
 // Parse URL-encoded bodies (from HTML forms)
 app.use(express.urlencoded({ extended: true }));
 

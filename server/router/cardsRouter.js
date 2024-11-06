@@ -33,6 +33,8 @@ router.post("/api/add-card", async (req, res) => {
   const { cardId } = req.body;
   const userId = req.session.userId; // Check for user session
 
+  console.log("Received cardId in request:", cardId); // Debugging
+
   if (!userId) {
     return res.status(401).json({ error: "Unauthorized. Please log in." });
   }
