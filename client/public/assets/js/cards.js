@@ -33,7 +33,6 @@ function renderCards(cards) {
         const addButton = cardDiv.querySelector(".add-card-btn");
         addButton.addEventListener("click", async (event) => {
             const cardId = event.target.getAttribute("data-card-id");
-            console.log("Adding card ID:", cardId); // Debugging
             await addCardToProfile(cardId);
         });
     });
@@ -55,7 +54,6 @@ function searchCards(term) {
 
 async function addCardToProfile(cardId) {
     try {
-        console.log("Sending cardId to server:", cardId); // Debugging
 
         const response = await fetch("/api/add-card", {
             method: "POST",
@@ -66,7 +64,6 @@ async function addCardToProfile(cardId) {
         });
 
         const data = await response.json();
-        console.log("Server response:", data); // Debugging
         if (data.success) {
             alert("Card added to your profile!");
         } else {

@@ -5,9 +5,11 @@ import { renderPage } from './util/templatingEngine.js';
 import { readPage } from './util/readPages.js';
 
 import express from "express";
-import pg from "pg";
+import { initializeDatabase } from "./util/database.js";
+
 const app = express();
-const { Client } = pg;
+
+initializeDatabase();
 
 // To parse json req bodies
 app.use(express.json());
@@ -20,28 +22,6 @@ app.use(express.urlencoded({ extended: true }));
 import dotenv from "dotenv";
 dotenv.config();
 
-// Initialize PostgreSQL connection
-const client = new Client({
-  user: process.env.PGUSER || "dan",
-  host: process.env.PGHOST || "localhost",
-  database: process.env.PGDATABASE || "hearthstone_db",
-  password: process.env.PGPASSWORD || "your_password",
-  port: process.env.PGPORT || 5432,
-});
-
-// Database initialization
-async function initializeDatabase() {
-  try {
-    await client.connect();
-    const res = await client.query("SELECT $1::text as message", ["Hello world!"]);
-    console.log(res.rows[0].message);
-  } catch (err) {
-    console.error("Database query error:", err);
-  } finally {
-    await client.end();
-  }
-};
-initializeDatabase();
 
 import cors from "cors";
 app.use(
