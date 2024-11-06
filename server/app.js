@@ -92,8 +92,6 @@ app.use(
   })
 );
 
-import { attachUserSession } from "./middleware/userSession.js";
-app.use(attachUserSession)
 
 app.use(flash());
 
