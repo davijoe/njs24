@@ -3,19 +3,18 @@ import pkg from "pg";
 
 const { Client } = pkg;
 
-// Initialize PostgreSQL client
-const client = new Client({
-  user: process.env.PGUSER || "dan",
-  host: process.env.PGHOST || "localhost",
-  database: process.env.PGDATABASE || "hearthstone_db",
-  password: process.env.PGPASSWORD || "your_password",
-  port: process.env.PGPORT || 5432,
-});
-
 const router = express.Router();
 
 // Route to fetch card data
 router.get("/api/tests", async (req, res) => {
+  const client = new Client({
+    user: process.env.PGUSER || "dan",
+    host: process.env.PGHOST || "localhost",
+    database: process.env.PGDATABASE || "hearthstone_db",
+    password: process.env.PGPASSWORD || "your_password",
+    port: process.env.PGPORT || 5432,
+  });
+
   try {
     await client.connect(); // Connect to the database
     const result = await client.query(
