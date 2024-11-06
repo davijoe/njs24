@@ -10,7 +10,7 @@
     <script>
         async function fetchCards() {
             try {
-                const response = await fetch("/api/cards");
+                const response = await fetch("/api/tests");
                 const data = await response.json();
 
                 const container = document.getElementById("cards-container");

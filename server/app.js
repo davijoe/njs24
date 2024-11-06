@@ -117,6 +117,8 @@ import pagesRouter from "./router/pagesRouter.js";
 app.use(pagesRouter);
 import authrouter from "./router/authRouter.js";
 app.use(authrouter);
+import cardsRouter from "./router/cardsRouter.js";
+app.use(cardsRouter);
 
 
 // Start server
