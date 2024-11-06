@@ -42,6 +42,42 @@ CREATE TABLE public.hearthstone_cards (
 ALTER TABLE public.hearthstone_cards OWNER TO dan;
 
 --
+-- Name: user_cards; Type: TABLE; Schema: public; Owner: dan
+--
+
+CREATE TABLE public.user_cards (
+    id integer NOT NULL,
+    user_id integer,
+    card_id character varying,
+    added_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.user_cards OWNER TO dan;
+
+--
+-- Name: user_cards_id_seq; Type: SEQUENCE; Schema: public; Owner: dan
+--
+
+CREATE SEQUENCE public.user_cards_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.user_cards_id_seq OWNER TO dan;
+
+--
+-- Name: user_cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dan
+--
+
+ALTER SEQUENCE public.user_cards_id_seq OWNED BY public.user_cards.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: dan
 --
 
@@ -78,6 +114,13 @@ ALTER SEQUENCE public.users_id_seq OWNER TO dan;
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: user_cards id; Type: DEFAULT; Schema: public; Owner: dan
+--
+
+ALTER TABLE ONLY public.user_cards ALTER COLUMN id SET DEFAULT nextval('public.user_cards_id_seq'::regclass);
 
 
 --
@@ -30731,6 +30774,15 @@ VAC_464t24	111961	Book of the Dead	Perils in Paradise	Spell	Unknown	Unknown	0	Un
 
 
 --
+-- Data for Name: user_cards; Type: TABLE DATA; Schema: public; Owner: dan
+--
+
+COPY public.user_cards (id, user_id, card_id, added_at) FROM stdin;
+1	21	\N	2024-11-06 22:16:55.729713
+\.
+
+
+--
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: dan
 --
 
@@ -30755,6 +30807,13 @@ COPY public.users (id, username, email, password, creationdate, user_role) FROM 
 
 
 --
+-- Name: user_cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dan
+--
+
+SELECT pg_catalog.setval('public.user_cards_id_seq', 1, true);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dan
 --
 
@@ -30767,6 +30826,14 @@ SELECT pg_catalog.setval('public.users_id_seq', 23, true);
 
 ALTER TABLE ONLY public.hearthstone_cards
     ADD CONSTRAINT hearthstone_cards_pkey PRIMARY KEY (card_id);
+
+
+--
+-- Name: user_cards user_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: dan
+--
+
+ALTER TABLE ONLY public.user_cards
+    ADD CONSTRAINT user_cards_pkey PRIMARY KEY (id);
 
 
 --
@@ -30791,6 +30858,22 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_username_key UNIQUE (username);
+
+
+--
+-- Name: user_cards user_cards_card_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dan
+--
+
+ALTER TABLE ONLY public.user_cards
+    ADD CONSTRAINT user_cards_card_id_fkey FOREIGN KEY (card_id) REFERENCES public.hearthstone_cards(card_id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_cards user_cards_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dan
+--
+
+ALTER TABLE ONLY public.user_cards
+    ADD CONSTRAINT user_cards_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
