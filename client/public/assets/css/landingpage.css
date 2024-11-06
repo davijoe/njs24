@@ -2,7 +2,7 @@
 .info-section {
   display: flex;
   flex-wrap: wrap;
-  height: 75vh;
+  height: 85vh;
   gap: 20px;
   padding: 20px;
   justify-content: center;

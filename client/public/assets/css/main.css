@@ -113,7 +113,7 @@ nav ul li a.active {
 
 /* ------- FOOTER ------- */
 footer {
-  position: absolute;
+  position: fixed;
   background: rgba(19, 35, 47, 0.9);
   color: #fff;
   bottom: 0;
