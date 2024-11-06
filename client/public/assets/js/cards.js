@@ -36,14 +36,30 @@ function filterCards(attribute, value) {
     renderCards(filteredCards);
 }
 
+function searchCards(term) {
+    const searchTerm = term.toLowerCase();
+    const filteredCards = cardsData.filter(card =>
+        card.name.toLowerCase().includes(searchTerm) ||
+        card.artist.toLowerCase().includes(searchTerm)
+    );
+    renderCards(filteredCards);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     fetchCards();
 
-    // Add event listeners for filter buttons
+    // Event listeners for filter buttons
     document.getElementById("filter-hero").addEventListener("click", () => filterCards("type", "Hero"));
     document.getElementById("filter-minion").addEventListener("click", () => filterCards("type", "Minion"));
     document.getElementById("filter-spell").addEventListener("click", () => filterCards("type", "Spell"));
     document.getElementById("filter-enchantment").addEventListener("click", () => filterCards("type", "Enchantment"));
     document.getElementById("filter-weapon").addEventListener("click", () => filterCards("type", "Weapon"));
     document.getElementById("filter-hero-power").addEventListener("click", () => filterCards("type", "Hero Power"));
+    document.getElementById("filter-all").addEventListener("click", () => renderCards(cardsData));
+
+    // Event listener for search input
+    document.getElementById("search-input").addEventListener("input", (event) => {
+        searchCards(event.target.value);
+    });
+
 });
