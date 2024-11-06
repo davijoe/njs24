@@ -4,36 +4,20 @@
   </div>
 
   <div id="cards-container-div">
-    <h1>Card Data</h1>
+    <h1 style="color: black;"><strong>Card Data</strong></h1>
+
+    <!-- Filter buttons for Type -->
+    <div>
+      <h3>Filter by Type:</h3>
+      <button id="filter-hero">Hero</button>
+      <button id="filter-minion">Minion</button>
+      <button id="filter-spell">Spell</button>
+      <button id="filter-enchantment">Enchantment</button>
+      <button id="filter-weapon">Weapon</button>
+      <button id="filter-hero-power">Hero Power</button>
+    </div>
+
     <div id="cards-container"></div>
-
-    <script>
-        async function fetchCards() {
-            try {
-                const response = await fetch("/api/tests");
-                const data = await response.json();
-
-                const container = document.getElementById("cards-container");
-                data.forEach(card => {
-                    const cardDiv = document.createElement("div");
-                    cardDiv.className = "card";
-                    cardDiv.innerHTML = `
-                        <h2>${card.name}</h2>
-                        <p><strong>Type:</strong> ${card.type}</p>
-                        <p><strong>Set:</strong> ${card.card_set}</p>
-                        <p><strong>Class:</strong> ${card.player_class}</p>
-                        <p><strong>Health:</strong> ${card.health}</p>
-                        <p><strong>Artist:</strong> ${card.artist}</p>
-                        <p><strong>Rarity:</strong> ${card.rarity}</p>
-                    `;
-                    container.appendChild(cardDiv);
-                });
-            } catch (error) {
-                console.error("Error fetching card data:", error);
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", fetchCards);
-    </script>
   </div>
+  <script src="../../assets/js/cards.js"></script>
 </section>
