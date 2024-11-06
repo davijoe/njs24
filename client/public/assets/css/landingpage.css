@@ -2,9 +2,11 @@
 .info-section {
   display: flex;
   flex-wrap: wrap;
+  height: 75vh;
   gap: 20px;
   padding: 20px;
   justify-content: center;
+  align-items: center;
 }
 
 /* Style for each box */
