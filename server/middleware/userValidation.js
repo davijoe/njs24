@@ -17,13 +17,13 @@ export function checkCredentialsSignup(req, res, next) {
 
 export async function checkCredentialsLogin(req, res, next) {
   req.body.username = req?.body.username?.trim();
-  // req.body.email = req?.body.email?.trim();
+  req.body.email = req?.body.email?.trim();
   req.body.password = req?.body.password?.trim();
 
-  //const { username, email, password } = req.body;
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
+  //const { username, password } = req.body;
 
-  if (!username || !password) {
+  if ((!username && !email) || !password) {
     return res
       .status(400)
       .send("Please provide either username or email and password");
@@ -53,7 +53,7 @@ export async function checkUserExist(req, res, next) {
 export function checkEmail(req, res, next) {
   const email = req?.body.email;
 
-  if (!email.includes("@") || !email.includes(".")) {
+  if (!email || !email.includes("@") || !email.includes(".")) {
     return res.status(400).send({ data: "Email must contain '@' and '.'" });
   }
   next();
