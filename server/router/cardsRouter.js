@@ -19,7 +19,7 @@ router.get("/api/tests", async (req, res) => {
   try {
     await client.connect(); // Connect to the database
     const result = await client.query(
-      "select * from hearthstone_cards where card_set='Battlegrounds' limit 5000",
+      "select * from hearthstone_cards where card_set='Battlegrounds' limit 1000",
     );
     res.json(result.rows); // Send the result as JSON
   } catch (error) {
