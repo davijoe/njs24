@@ -52,4 +52,14 @@ router.post(
   }
 );
 
+router.get("/api/v1/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.status(500).send({ data: "Failed to logout" });
+    }
+    res.redirect("/"); // Redirect to homepage after logout
+  });
+});
+
 export default router;

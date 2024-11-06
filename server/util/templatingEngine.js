@@ -16,7 +16,8 @@ export function renderPage(page, config = {}) {
     .toString();
 
   const authButtons = config.username
-    ? `<li><a href="/api/v1/profile">${config.username}</a></li>`
+    ? `<li><a href="/api/v1/profile"><strong>${config.username}</strong></a></li>
+      <li><a href="/api/v1/logout">Logout</a></li>`
     : `
       <li><a href="#" id="login-link">Login</a></li>
       <li><a href="#" id="signup-link">Signup</a></li>
