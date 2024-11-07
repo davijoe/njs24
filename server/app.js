@@ -1,7 +1,7 @@
 import session from "express-session";
 import flash from "connect-flash";
-import { renderPage } from './util/templatingEngine.js';
-import { readPage } from './util/readPages.js';
+import { renderPage } from "./util/templatingEngine.js";
+import { readPage } from "./util/readPages.js";
 
 import express from "express";
 
@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     socket.broadcast.emit("message", `User ${socket.id.substring(0, 5)} disconnected`);
   });
-})
+});
 
 // Serve static files
 app.use(express.static("../client/public"));
