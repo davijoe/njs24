@@ -4,8 +4,8 @@ async function fetchCards() {
     try {
         const response = await fetch("/api/tests");
         const data = await response.json();
-        cardsData = data; // Store data for filtering
-        renderCards(cardsData); // Render all cards
+        cardsData = data;
+        renderCards(cardsData);
     } catch (error) {
         console.error("Error fetching card data:", error);
     }
@@ -13,7 +13,7 @@ async function fetchCards() {
 
 function renderCards(cards) {
     const container = document.getElementById("cards-container");
-    container.innerHTML = ""; // Clear previous cards
+    container.innerHTML = "";
 
     cards.forEach(card => {
         const cardDiv = document.createElement("div");
