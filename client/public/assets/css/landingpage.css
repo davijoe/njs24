@@ -1,4 +1,3 @@
-/* Style the section containing the boxes */
 .info-section {
   display: flex;
   flex-wrap: wrap;
@@ -9,7 +8,6 @@
   align-items: center;
 }
 
-/* Style for each box */
 .info-box {
   background: rgba(19, 35, 47, 0.9);
   border: 1px solid #ddd;
@@ -21,20 +19,17 @@
   transition: transform 0.2s;
 }
 
-/* Box hover effect */
 .info-box:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Heading style */
 .info-box h2 {
   font-size: 1.4em;
   color: #1ab188;
   margin-bottom: 10px;
 }
 
-/* Paragraph style */
 .info-box p {
   color: #f6f6f6;
   font-size: 1em;
