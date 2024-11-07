@@ -1,4 +1,3 @@
-import helmet from "helmet";
 import session from "express-session";
 import flash from "connect-flash";
 import { renderPage } from './util/templatingEngine.js';
@@ -6,9 +5,7 @@ import { readPage } from './util/readPages.js';
 
 import express from "express";
 import { initializeDatabase } from "./util/database.js";
-
 const app = express();
-
 initializeDatabase();
 
 // To parse json req bodies
@@ -85,6 +82,7 @@ app.get("/", (req, res) => {
   res.send(renderPage(homepage, config));
 });
 
+import helmet from "helmet";
 app.use(
   helmet.contentSecurityPolicy({
     directives: {

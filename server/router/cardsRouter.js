@@ -1,12 +1,12 @@
 import express from "express";
-import { client } from "../util/database.js"; // Use the shared client from database.js
+import pool from "../database/connection.js"; // Use the shared pool from connection.js
 
 const router = express.Router();
 
 // Route to fetch card data
 router.get("/api/tests", async (req, res) => {
   try {
-    const result = await client.query(
+    const result = await pool.query(
       "SELECT * FROM hearthstone_cards WHERE card_set = 'Battlegrounds' LIMIT 1000"
     );
     res.json(result.rows); // Send result as JSON
@@ -32,7 +32,7 @@ router.post("/api/add-card", async (req, res) => {
       VALUES ($1, $2)
       ON CONFLICT DO NOTHING
     `;
-    await client.query(query, [userId, cardId]);
+    await pool.query(query, [userId, cardId]); // Use pool.query instead of client.query
     res.json({ success: true, message: "Card added to profile." });
   } catch (error) {
     console.error("Error adding card to profile:", error);
