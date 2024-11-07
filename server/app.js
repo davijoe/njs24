@@ -4,9 +4,9 @@ import { renderPage } from './util/templatingEngine.js';
 import { readPage } from './util/readPages.js';
 
 import express from "express";
-import { initializeDatabase } from "./util/database.js";
+
 const app = express();
-initializeDatabase();
+
 
 // To parse json req bodies
 app.use(express.json());
